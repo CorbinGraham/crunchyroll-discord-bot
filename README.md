@@ -1,1 +1,2 @@
 # crunchyroll-discord-bot
+Invoke the bot to queue a new crunchyroll episode. Binds to the channel that the user summoned them from and starts a ready check. Once ready check is compleate begin TTS countdown. Allow summoner to skip users or users in channel to opt out.
