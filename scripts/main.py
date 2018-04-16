@@ -2,18 +2,24 @@
 import discord
 import darling_utils
 import watch_together
+import ichigo
 import os
 import asyncio
+import stalk_users
 
 TOKEN =  str(os.environ['002TOKEN'])
 
 client = discord.Client()
 
 darling = None;
+watched_channel = None;
+tts_announce_channel = None;
 
 @client.event
 async def on_message(message):
     global darling
+    global watched_channel
+    global tts_announce_channel
 
     # we do not want the bot to reply to itself
     if message.author == client.user:
@@ -56,6 +62,26 @@ async def on_message(message):
 
         await client.send_message(message.channel, '3, 2, 1, Start!', tts=True)
 
+    if message.content.startswith('$ichigo'):
+        msg = ichigo.ichigo()
+        await client.send_message(message.channel, msg)
+
+    if message.content.startswith('$usernotifications'):
+        msg = stalk_users.enable(message)
+        global tts_announce_channel
+        tts_announce_channel = message.channel
+        global watched_channel
+        watched_channel = message.author.voice.voice_channel
+        await client.send_message(message.channel, msg)
+
+@client.event
+async def on_voice_state_update(before, after):
+    if watched_channel != None:
+        if (before.voice_channel != watched_channel) and (after.voice_channel == watched_channel):
+            await client.send_message(tts_announce_channel, after.name + ' has joined channel', tts = True)
+
+        elif (before.voice_channel == watched_channel) and (after.voice_channel != watched_channel):
+            await client.send_message(tts_announce_channel, after.name + ' has left channel', tts = True)
 
 @client.event
 async def on_ready():
