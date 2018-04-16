@@ -68,9 +68,7 @@ async def on_message(message):
 
     if message.content.startswith('$usernotifications'):
         msg = stalk_users.enable(message)
-        global tts_announce_channel
         tts_announce_channel = message.channel
-        global watched_channel
         watched_channel = message.author.voice.voice_channel
         await client.send_message(message.channel, msg)
 
