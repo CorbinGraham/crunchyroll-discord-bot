@@ -8,7 +8,6 @@ client = discord.Client()
 
 @client.event
 async def on_message(message):
-    # import pdb; pdb.set_trace()
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
@@ -19,6 +18,7 @@ async def on_message(message):
 
     if message.content.startswith('!queue'):
         msg = enqueue_episode.add_to_queue(message, message.content.split(" "))
+        connected_users = enqueue_episode.find_users(message)
         await client.send_message(message.channel, msg)
 
 @client.event

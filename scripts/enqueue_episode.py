@@ -14,3 +14,6 @@ def build_message(message, split_command):
 	except IndexError:
 	  msg = 'BAKA! I need something to enqueue!'
 	return msg
+
+def find_users(message):
+	message.author.voice.voice_channel.voice_members
