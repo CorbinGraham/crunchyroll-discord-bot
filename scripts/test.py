@@ -2,7 +2,7 @@
 import discord
 import enqueue_episode
 
-TOKEN = 'NDM1MTk1MjMxMjA2NjM3NTk5.DbVcSQ.HLl5aMpe8G-ystPZtrfozhBIoIY'
+TOKEN = shit
 
 client = discord.Client()
 
