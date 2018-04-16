@@ -6,14 +6,24 @@ def find_caller(message, split_command):
 	if caller:
 		return build_message(message, split_command)
 	else:
-		return 'You need to be in a channel'
+		return 'You need to be in a voice channel!'
 
 def build_message(message, split_command):
 	try:
-	  msg = message.author.mention + ' has enqueued ' + split_command[1].format(message)
+	  msg = message.author.mention + ' wants to watch ' + split_command[1].format(message)
 	except IndexError:
 	  msg = 'BAKA! I need something to enqueue!'
 	return msg
 
 def find_users(message):
-	message.author.voice.voice_channel.voice_members
+	counter = 0
+	users = message.author.voice.voice_channel.voice_members
+
+	for User in users:
+		if User.bot == False:
+			counter += 1
+
+	return counter
+
+def send_ready_message():
+	return "Click the check when you're ready to watch!"
