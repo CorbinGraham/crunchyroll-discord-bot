@@ -2,6 +2,7 @@
 import discord
 import darling_utils
 import watch_together
+import ichigo
 import os
 import asyncio
 
@@ -55,6 +56,10 @@ async def on_message(message):
             ready += 1
 
         await client.send_message(message.channel, '3, 2, 1, Start!', tts=True)
+
+    if message.content.startswith('$ichigo'):
+        msg = ichigo.ichigo()
+        await client.send_message(message.channel, msg)
 
 
 @client.event
