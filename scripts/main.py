@@ -7,7 +7,7 @@ import os
 import asyncio
 import stalk_users
 
-TOKEN =  str(os.environ['002TOKEN'])
+TOKEN = str(os.environ['002TOKEN'])
 
 client = discord.Client()
 
@@ -49,6 +49,8 @@ async def on_message(message):
         connected_users = watch_together.find_users(message)
 
         await client.send_message(message.channel, msg)
+        if msg == 'BAKA! I need something to enqueue!':
+            return
 
         msg = watch_together.send_ready_message()
         ready_message = await client.send_message(message.channel, msg)
